@@ -3,15 +3,14 @@ import os
 import copy
 import matplotlib.pyplot as plt
 
-#data = [np.loadtxt(f'\\3D\\{i}') for i in range(-3, 13)]
 
-# Initialize dictionary with keys as folder names
 data = {key:[] for key in os.listdir('.\\3D')}
+
+print('Gathering Data...')
 
 for directory in os.listdir('.\\3D'):
     #folderarray = np.zeros(len(os.listdir(f'.\\3D\\{directory}')))
     folderarray = np.asmatrix(np.zeros((480, 640)))
-    print(f'Current directory: {directory}')
 
     for i, filename in enumerate(os.listdir(f'.\\3D\\{directory}')):
         with open(os.path.join(f'.\\3D\\{directory}', filename)) as f: # open in readonly mode
@@ -20,10 +19,12 @@ for directory in os.listdir('.\\3D'):
     folderarray /= (i+1)
     data[directory] = copy.deepcopy(folderarray)
 
+print('Data Gatehred')
 
-#print(data['0'])
-fig, ax = plt.subplots()
-im = ax.imshow(data['0'])
-fig.colorbar(im, ax=ax, label='Interactive colorbar')
+for key, value in zip(data.keys(), data.values()):
+    fig, ax = plt.subplots()
+    fig.suptitle(f"Angle of Attack {key}")
+    im = ax.imshow(value, cmap='jet')
+    fig.colorbar(im, ax=ax, label='Interactive colorbar')
 
-plt.show()
+    plt.show()
