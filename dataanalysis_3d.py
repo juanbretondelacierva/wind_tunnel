@@ -1,28 +1,27 @@
 import numpy as np
-import os
-import copy
 import matplotlib.pyplot as plt
 import pickle
-
-def flatten_list(nested):
-    flattened = []
-    for item in nested:
-        if isinstance(item, list):
-            flattened.extend(flatten_list(item))
-        else:
-            flattened.append(item)
-    return flattened
-
 
 with open('saved_variables_3d.pkl', 'rb') as file:
     data = pickle.load(file)
 
-print(type(data['0']))
 
-for key, value in zip(data.keys(), data.values()):
-    fig, ax = plt.subplots()
-    fig.suptitle(f"Angle of Attack {key}")
-    im = ax.imshow(value, cmap='jet')
-    fig.colorbar(im, ax=ax, label='Interactive colorbar')
+filterconv = [ -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1]
 
-    plt.show()
+columnsplot = 16
+fig, ax = plt.subplots(3, columnsplot)
+
+for i, (key, value) in enumerate(zip(data.keys(), data.values())):
+    ax[i//columnsplot][i%columnsplot].set_title(f"{key}")
+    im = ax[i//columnsplot][i%columnsplot].imshow(value, cmap='jet')
+
+plt.show()
+
+fig, ax = plt.subplots(3, columnsplot)
+for i, (key, value) in enumerate(zip(data.keys(), data.values())):
+    convolved_data = np.array([np.convolve(row, filterconv, mode='valid') for row in value])
+    ax[i//columnsplot][i%columnsplot].set_title(f"{key}")
+    im = ax[i//columnsplot][i%columnsplot].imshow(convolved_data, cmap='jet')
+    #fig.colorbar(im, ax=ax)
+
+plt.show()
