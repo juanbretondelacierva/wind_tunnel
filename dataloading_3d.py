@@ -15,8 +15,8 @@ if __name__ == '__main__':
 
     data = {key:None for key in listdir}
     
-    right_limit = 446
-    left_limit = 196
+    right_limit = 446 # 640 or 446 
+    left_limit = 196 # 0 or 196
 
     print('Gathering Data...')
 
@@ -31,8 +31,6 @@ if __name__ == '__main__':
         folderarray /= (i+1)
         data[directory] = copy.deepcopy(folderarray)
 
-
-    print(data.keys())
     with open('saved_variables_3d.pkl', 'wb') as file:
         pickle.dump(data, file)
     
