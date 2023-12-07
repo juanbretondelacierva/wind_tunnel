@@ -3,7 +3,7 @@ import os
 from matplotlib import pyplot as plt
 
 #aoa = ["-3","-2","-1","0","1","2","3","3.5","4","4.5","5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12","12.5","13","13.5","14","14.5","15","15.5","16","16.5","17","17.5","18","17.5h","17h","16.5h","16h","15.5h","15h","14.5h","14h","13.5h","13h","12.5h","12h","11.5h"]
-aoa = ["8"]
+aoa = ["2"]
 
 right_limit = 446
 left_limit = 196
@@ -13,19 +13,26 @@ def average_columns(array):
     
 
 def pixelate_columns(array):
-    pixelated_row = np.zeros(250)
-    for i in range(25):
-        #print(np.mean([array[2*i], array[2*i + 1]]))
-        #pixelated_row[2*i], pixelated_row[2*i+1] = np.mean([array[2*i], array[2*i + 1]]), np.mean([array[2*i], array[2*i + 1]])
-        pixelated_row[10*i] = pixelated_row[10*i + 1]= pixelated_row[10*i + 2]= pixelated_row[10*i + 3]= pixelated_row[10*i + 4]= pixelated_row[10*i + 5]= pixelated_row[10*i + 6]= pixelated_row[10*i + 7]= pixelated_row[10*i + 8]= pixelated_row[10*i + 9] = np.mean(array[:, 10*i : 10*i + 10])
+    pixelated_row = np.zeros(50)
+    for i in range(50):
+        pixelated_row[i] = np.mean(array[:, 5*i : 5*i + 5])
     return pixelated_row
 
+
 def row_to_image(array):
-    image = np.asmatrix(np.zeros((right_limit-left_limit, right_limit-left_limit)))
-    for i in range(right_limit-left_limit):
+    image = np.asmatrix(np.zeros((int(50), int(50))))
+    for i in range(int((right_limit-left_limit)/5)):
         image[i] = array
     return image
 
+def derivate_row(array):
+    return np.append(np.diff(array), np.mean(np.diff(array)))
+
+def find_line(array):
+    pixelated_row = np.zeros(50)
+    index = np.argmax(np.abs(array))
+    pixelated_row[index]=1
+    return pixelated_row
 
 def plot():
     for folder in aoa:
@@ -39,7 +46,9 @@ def plot():
         fig.suptitle(f"Angle of Attack "+str(folder))
         im = ax[0].imshow(data_matrix, cmap="jet")
         fig.colorbar(im, ax=ax, label='Interactive colorbar')
-        im = ax[1].imshow(row_to_image(pixelate_columns(average_columns(data_matrix))), cmap="jet")
+        #im = ax[1].imshow(row_to_image(derivate_row(pixelate_columns(average_columns(data_matrix)))), cmap="jet")
+        #fig.colorbar(im, ax=ax, label='Interactive colorbar')
+        im = ax[1].imshow(row_to_image(find_line(derivate_row(pixelate_columns(average_columns(data_matrix))))), cmap="binary")
         fig.colorbar(im, ax=ax, label='Interactive colorbar')
         plt.show()
     
