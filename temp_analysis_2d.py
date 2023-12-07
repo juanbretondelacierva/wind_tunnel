@@ -3,17 +3,43 @@ import os
 from matplotlib import pyplot as plt
 
 #aoa = ["-3","-2","-1","0","1","2","3","3.5","4","4.5","5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12","12.5","13","13.5","14","14.5","15","15.5","16","16.5","17","17.5","18","17.5h","17h","16.5h","16h","15.5h","15h","14.5h","14h","13.5h","13h","12.5h","12h","11.5h"]
-aoa = ["-3"]
+aoa = ["8"]
+
+right_limit = 446
+left_limit = 196
+
+def average_columns(array):
+    return np.mean(array, axis=0)
+    
+
+def pixelate_columns(array):
+    pixelated_row = np.zeros(250)
+    for i in range(25):
+        #print(np.mean([array[2*i], array[2*i + 1]]))
+        #pixelated_row[2*i], pixelated_row[2*i+1] = np.mean([array[2*i], array[2*i + 1]]), np.mean([array[2*i], array[2*i + 1]])
+        pixelated_row[10*i] = pixelated_row[10*i + 1]= pixelated_row[10*i + 2]= pixelated_row[10*i + 3]= pixelated_row[10*i + 4]= pixelated_row[10*i + 5]= pixelated_row[10*i + 6]= pixelated_row[10*i + 7]= pixelated_row[10*i + 8]= pixelated_row[10*i + 9] = np.mean(array[:, 10*i : 10*i + 10])
+    return pixelated_row
+
+def row_to_image(array):
+    image = np.asmatrix(np.zeros((right_limit-left_limit, right_limit-left_limit)))
+    for i in range(right_limit-left_limit):
+        image[i] = array
+    return image
+
+
 def plot():
-    for foulder in aoa:
-        data_matrix = np.asmatrix(np.zeros((430, 450-176)))
-        for filename in os.listdir("2D/"+str(foulder)+"/"):
-            number_of_files = len([name for name in os.listdir("2D/"+str(foulder)+"/") if os.path.isfile(os.path.join("2D/"+str(foulder)+"/", name))])
-            data_array = np.matrix(np.loadtxt(open("2D/"+str(foulder)+"/"+filename, "rb"), delimiter=";", usecols=range(176, 450), skiprows=50))
+    for folder in aoa:
+        data_matrix = np.asmatrix(np.zeros((right_limit-left_limit, right_limit-left_limit)))
+        for filename in os.listdir("2D/"+str(folder)+"/"):
+            number_of_files = len([name for name in os.listdir("2D/"+str(folder)+"/") if os.path.isfile(os.path.join("2D/"+str(folder)+"/", name))])
+            data_array = np.matrix(np.loadtxt(open("2D/"+str(folder)+"/"+filename, "rb"), delimiter=";", usecols=range(left_limit, right_limit), skiprows=140, max_rows=(right_limit-left_limit)))
             data_matrix += data_array/number_of_files
-        fig, ax = plt.subplots()
-        fig.suptitle(f"Angle of Attack "+str(foulder))
-        im = ax.imshow(data_matrix, cmap="jet")
+        
+        fig, ax = plt.subplots(1,2)
+        fig.suptitle(f"Angle of Attack "+str(folder))
+        im = ax[0].imshow(data_matrix, cmap="jet")
+        fig.colorbar(im, ax=ax, label='Interactive colorbar')
+        im = ax[1].imshow(row_to_image(pixelate_columns(average_columns(data_matrix))), cmap="jet")
         fig.colorbar(im, ax=ax, label='Interactive colorbar')
         plt.show()
     
