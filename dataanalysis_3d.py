@@ -20,17 +20,14 @@ for index in range(len(data['0'])):
     minimums = []
     for (aoa, matrix) in zip(data.keys(), data.values()):
         convolved_row = np.convolve(matrix[index], filterconv, mode='valid')
-        convolved_row = smooth(convolved_row, 3),
         minindex = np.argmin(convolved_row)
         minimums.append(minindex)
-        if aoa == '10':
-            break
     
     min2d.append(list(minimums))
 
 
 fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-X, Y = np.meshgrid([-3,-2,-1,0,1,2,3,4,5,6,7,7.5,8,8.5,9,9.5,10], np.arange(len(data['0'])))
+X, Y = np.meshgrid(np.arange(46), np.arange(len(data['0'])))
 min2d = sp.ndimage.uniform_filter(min2d, size = 6, mode = 'constant')
 surf = ax.plot_surface(X, Y, np.array(min2d, dtype=int), cmap=cm.coolwarm,
                        linewidth=0)
@@ -64,4 +61,4 @@ for i, (key, value) in enumerate(zip(data.keys(), data.values())):
     im = ax[i//columnsplot][i%columnsplot].imshow(convolved_data, cmap='jet', vmin = -saturation, vmax = saturation)
     #fig.colorbar(im, ax=ax)
 
-plt.show()
+#plt.show()
