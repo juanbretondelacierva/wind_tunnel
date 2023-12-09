@@ -7,6 +7,9 @@ aoa = ["-3","-2","-1","0","1","2","3","3.5","4","4.5","5","5.5","6","6.5","7","7
 
 right_limit = 446
 left_limit = 196
+aoa_plot = []
+chordpos = np.array([])
+i = 0
 
 def average_columns(array):
     return np.mean(array, axis=0)
@@ -15,13 +18,13 @@ def average_columns(array):
 def pixelate_columns(array):
     pixelated_row = np.zeros(50)
     for i in range(50):
-        pixelated_row[i] = np.mean(array[:, 5*i : 5*i + 5])
+        pixelated_row[i] = np.mean(array[:,5*i : 5*i + 5])
     return pixelated_row
 
 
 def row_to_image(array):
-    image = np.asmatrix(np.zeros((int(50), int(50))))
-    for i in range(int((right_limit-left_limit)/5)):
+    image = np.asmatrix(np.zeros((int(8), int(50))))
+    for i in range(int(8)):
         image[i] = array
     return image
 
@@ -29,33 +32,80 @@ def derivate_row(array):
     return np.append(np.diff(array), np.mean(np.diff(array)))
 
 def find_line(array, id):
+    global chordpos, aoa_plot
     pixelated_row = np.zeros(50)
-    if id >= 18 and id != 44 and id != 46:
+    if id >= 18:
         index = np.argmax(np.abs(array))
     else:
         index = np.argmax(array)
     pixelated_row[index]=1
+    aoa_value = float(aoa[i].replace("h", ""))
+    aoa_plot.append(aoa_value)
+    chordpos = np.append(chordpos, index/50*240)
     return pixelated_row
-
+"""
 def plot():
-    i = 0
+    global i
     for folder in aoa:
-        data_matrix = np.asmatrix(np.zeros((right_limit-left_limit, right_limit-left_limit)))
+        data_matrix = np.asmatrix(np.zeros((40, right_limit-left_limit)))
         for filename in os.listdir("2D/"+str(folder)+"/"):
             number_of_files = len([name for name in os.listdir("2D/"+str(folder)+"/") if os.path.isfile(os.path.join("2D/"+str(folder)+"/", name))])
-            data_array = np.matrix(np.loadtxt(open("2D/"+str(folder)+"/"+filename, "rb"), delimiter=";", usecols=range(left_limit, right_limit), skiprows=140, max_rows=(right_limit-left_limit)))
+            data_array = np.matrix(np.loadtxt(open("2D/"+str(folder)+"/"+filename, "rb"), delimiter=";", usecols=range(left_limit, right_limit), skiprows=300, max_rows=40))
             data_matrix += data_array/number_of_files
-        if i >= 42:
-            fig, ax = plt.subplots(1,2)
+        if i >= 48:
+            fig, ax = plt.subplots(2,2)
             fig.suptitle(f"Angle of Attack "+str(folder))
-            im = ax[0].imshow(data_matrix, cmap="jet")
+            im = ax[0][0].imshow(data_matrix, cmap="jet")
             fig.colorbar(im, ax=ax, label='Interactive colorbar')
-            #im = ax[1].imshow(row_to_image(derivate_row(pixelate_columns(average_columns(data_matrix)))), cmap="jet")
-            #fig.colorbar(im, ax=ax, label='Interactive colorbar')
-            im = ax[1].imshow(row_to_image(find_line(derivate_row(pixelate_columns(average_columns(data_matrix))), i)), cmap="binary")
+            im = ax[0][1].imshow(row_to_image(pixelate_columns(average_columns(data_matrix))), cmap="jet")
+            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            im = ax[1][1].imshow(row_to_image(derivate_row(pixelate_columns(average_columns(data_matrix)))), cmap="jet")
+            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            im = ax[1][0].imshow(row_to_image(find_line(derivate_row(pixelate_columns(average_columns(data_matrix))), i)), cmap="binary")
             fig.colorbar(im, ax=ax, label='Interactive colorbar')
             plt.show()
+        else:
+            find_line(derivate_row(pixelate_columns(average_columns(data_matrix))), i)
         i += 1
+    fig, ax = plt.subplots()
+    im = ax.plot(aoa, chordpos)
+    plt.show()
+"""
+def plot():
+    global i, aoa_plot
+    aoa_plot = []  # Initialize aoa_plot as an empty list
+    for folder in aoa:
+        # Use os.path.join to handle folder names with negative values
+        folder_path = os.path.join("2D", str(folder))
+        
+        data_matrix = np.asmatrix(np.zeros((40, right_limit - left_limit)))
+        try:
+            for filename in os.listdir(folder_path):
+                number_of_files = len([name for name in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, name))])
+                data_array = np.matrix(np.loadtxt(open(os.path.join(folder_path, filename), "rb"), delimiter=";", usecols=range(left_limit, right_limit), skiprows=300, max_rows=40))
+                data_matrix += data_array / number_of_files
+        except FileNotFoundError:
+            print(f"Folder not found: {folder_path}")
+            continue
+
+        if i >= 48:
+            fig, ax = plt.subplots(2,2)
+            fig.suptitle(f"Angle of Attack "+str(folder))
+            im = ax[0][0].imshow(data_matrix, cmap="jet")
+            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            im = ax[0][1].imshow(row_to_image(pixelate_columns(average_columns(data_matrix))), cmap="jet")
+            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            im = ax[1][1].imshow(row_to_image(derivate_row(pixelate_columns(average_columns(data_matrix)))), cmap="jet")
+            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            im = ax[1][0].imshow(row_to_image(find_line(derivate_row(pixelate_columns(average_columns(data_matrix))), i)), cmap="binary")
+            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            plt.show()
+        else:
+            find_line(derivate_row(pixelate_columns(average_columns(data_matrix))), i)
+        i += 1
+    fig, ax = plt.subplots()
+    im = ax.plot(aoa, chordpos)  # Use aoa instead of aoa_plot
+    plt.show()
     
 
 plot()
