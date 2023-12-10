@@ -86,4 +86,23 @@ def cl_cd():
     plt.legend()
     plt.show()
 
-cl_cd()
+def cp_dist():
+    data_array = np.loadtxt(open("Forces/2D/corr_test.txt", "rb"), delimiter="	", usecols=[2,3], skiprows=2)
+    cd = data_array[:, 0]
+    cl = data_array[:, 1]
+
+    fig, ax = plt.subplots()
+    ax.plot(cd, cl, "o", color="blue", markersize=4)
+    ax.plot(cd, cl, "-", color="blue", label="Corrected Cl-Cd")
+
+    data_array = np.loadtxt(open("Forces/2D/press_test.txt", "rb"), delimiter="	", usecols=[2,3], skiprows=2)
+    cd = data_array[:, 0]
+    cl = data_array[:, 1]
+
+    ax.plot(cd, cl, "o", color="orange", markersize=4)
+    ax.plot(cd, cl, "-", color="orange", label="Uncorrected Cl-Cd")
+
+    ax.set_xlabel('Cd')
+    ax.set_ylabel('Cl')
+    plt.legend()
+    plt.show()
