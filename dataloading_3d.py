@@ -15,10 +15,10 @@ if __name__ == '__main__':
 
     data = {key:None for key in listdir}
     
-    right_limit = 446 # 640 or 446 
-    left_limit = 196 # 0 or 196
-    top_limit = 40
-    bottom_limit = 480
+    right_limit = 640 # 640 or 446 
+    left_limit = 0 # 0 or 196
+    top_limit = 0 # 0 or 40
+    bottom_limit = 480 # 480
 
     print('Gathering Data...')
 

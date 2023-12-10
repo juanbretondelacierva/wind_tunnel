@@ -21,6 +21,9 @@ def cl_alpha():
 
     ax.set_xlabel('Alpha')
     ax.set_ylabel('Cl')
+    ax.set_xticks(np.arange(-3, 18, 1))
+
+    plt.grid()
     plt.legend()
     plt.show()
 
@@ -42,6 +45,7 @@ def cd_alpha():
 
     ax.set_xlabel('Alpha')
     ax.set_ylabel('Cd')
+    plt.grid()
     plt.legend()
     plt.show()
 
@@ -63,6 +67,7 @@ def cl_cd():
 
     ax.set_xlabel('Cd')
     ax.set_ylabel('Cl')
+    plt.grid()
     plt.legend()
     plt.show()
 
