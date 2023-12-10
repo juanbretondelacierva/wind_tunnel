@@ -87,22 +87,19 @@ def cl_cd():
     plt.show()
 
 def cp_dist():
-    data_array = np.loadtxt(open("Forces/2D/corr_test.txt", "rb"), delimiter="	", usecols=[2,3], skiprows=2)
-    cd = data_array[:, 0]
-    cl = data_array[:, 1]
-
+    x = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=0, skiprows=2)
     fig, ax = plt.subplots()
-    ax.plot(cd, cl, "o", color="blue", markersize=4)
-    ax.plot(cd, cl, "-", color="blue", label="Corrected Cl-Cd")
+    for i in range(51):
+        cp = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=2)
+        alpha = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=1, max_rows=1)
+        ax.plot(x, cp, "o", markersize=2)
+        ax.plot(x, cp, "-", label=("Cd - "+str(alpha)))
 
-    data_array = np.loadtxt(open("Forces/2D/press_test.txt", "rb"), delimiter="	", usecols=[2,3], skiprows=2)
-    cd = data_array[:, 0]
-    cl = data_array[:, 1]
-
-    ax.plot(cd, cl, "o", color="orange", markersize=4)
-    ax.plot(cd, cl, "-", color="orange", label="Uncorrected Cl-Cd")
 
     ax.set_xlabel('Cd')
-    ax.set_ylabel('Cl')
+    ax.set_ylabel('X')
     plt.legend()
     plt.show()
+    
+
+cp_dist()
