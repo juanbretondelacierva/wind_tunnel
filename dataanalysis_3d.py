@@ -12,12 +12,12 @@ with open('saved_variables_3d.pkl', 'rb') as file:
 # min2d is filled with all the minimum values of each row of the convoluted data for each aoa
 # so [[46]*500]
 n = 8
-filterconv = np.concatenate((- np.ones(n), np.ones(n)))
+filtersigmoid = np.concatenate((- np.ones(n), np.ones(n)))
 min2d = []
 for index in range(len(data['0'])):
     minimums = []
     for (aoa, matrix) in zip(data.keys(), data.values()):
-        convolved_row = np.convolve(matrix[index], filterconv, mode='valid')
+        convolved_row = np.convolve(matrix[index], filtersigmoid, mode='valid')
         minindex = np.argmin(convolved_row)
         minimums.append(minindex)
     
@@ -54,7 +54,7 @@ surf = ax.plot_surface(X, Y, np.array(min2d, dtype=int), cmap=cm.coolwarm,
 
 # Plot settings
 numplots = 46
-columnsplot = 12
+columnsplot = 8
 rowsplots = numplots//columnsplot +1
 
 # First normal data plot
@@ -62,20 +62,21 @@ fig, ax = plt.subplots(rowsplots, columnsplot, sharex=True, sharey=True)
 
 for i, (key, value) in enumerate(zip(data.keys(), data.values())):
     ax[i//columnsplot][i%columnsplot].set_title(f"{key}")
-    im = ax[i//columnsplot][i%columnsplot].imshow(value, cmap='jet', vmin = 10.5, vmax = 12.5)
+    im = ax[i//columnsplot][i%columnsplot].imshow(value, cmap='jet', vmin = 10.5, vmax = 12.1)
 
 # Second (filtered) plot
 
 # g0d filters: [ -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1]
 # Filters should add to 0 in not --> change vmin, vmax in bottom plot
-n = 8
-filterconv = np.concatenate((- np.ones(n), np.ones(n)))
+#n = 8
+#filterconv = np.concatenate((- np.ones(n), np.ones(n)))
+filtersigmoid = [(2/(1+np.exp(-x))-1) for x in np.arange(-5, 5.5, 0.5)]
 
 saturation = 1 #Actually inverse but who cares, the lower the more saturated
 fig, ax = plt.subplots(rowsplots, columnsplot, sharex=True, sharey=True)
 
 for i, (key, value) in enumerate(zip(data.keys(), data.values())):
-    convolved_data = np.array([np.convolve(row, filterconv, mode='valid') for row in value])
+    convolved_data = np.array([np.convolve(row, filtersigmoid, mode='valid') for row in value])
     ax[i//columnsplot][i%columnsplot].set_title(f"{key}")
     im = ax[i//columnsplot][i%columnsplot].imshow(convolved_data, cmap='jet', vmin = -saturation, vmax = saturation)
     #fig.colorbar(im, ax=ax)
