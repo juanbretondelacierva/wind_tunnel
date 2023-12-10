@@ -89,7 +89,7 @@ def cl_cd():
 def cp_dist():
     x = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=0, skiprows=2)
     fig, ax = plt.subplots()
-    for i in range(51):
+    for i in range(0, 51, 1):
         cp = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=2)
         alpha = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=1, max_rows=1)
         ax.plot(x, cp, "o", markersize=2)
@@ -98,7 +98,7 @@ def cp_dist():
 
     ax.set_xlabel('Cd')
     ax.set_ylabel('X')
-    plt.legend()
+    plt.legend(ncol=5)
     plt.show()
     
 
