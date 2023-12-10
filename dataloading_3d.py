@@ -17,6 +17,8 @@ if __name__ == '__main__':
     
     right_limit = 446 # 640 or 446 
     left_limit = 196 # 0 or 196
+    top_limit = 40
+    bottom_limit = 480
 
     print('Gathering Data...')
 
@@ -29,6 +31,7 @@ if __name__ == '__main__':
                 folderarray += np.loadtxt(f, delimiter=';', usecols=range(left_limit, right_limit))
         
         folderarray /= (i+1)
+        folderarray = folderarray[top_limit:bottom_limit]
         data[directory] = copy.deepcopy(folderarray)
 
     with open('saved_variables_3d.pkl', 'wb') as file:
