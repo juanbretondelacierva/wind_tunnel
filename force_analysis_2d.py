@@ -93,11 +93,14 @@ def cp_dist():
         if i == 6 or i ==8:
             continue
         else:
-            if i == 46 or i == 30:
+            if i == 47 or i == 29:
                 cp = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=2)
                 alpha = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=1, max_rows=1)
                 ax.plot(x, cp, "o", markersize=2)
-                ax.plot(x, cp, "-", label=("Cd - "+str(alpha)+"º"))
+                if i <= 38:
+                    ax.plot(x, cp, "-", color="blue", label=("Cd - "+str(alpha)+"º"))
+                else:
+                    ax.plot(x, cp, "-", color="orange", label=("Cd - "+str(alpha)+"º H"))
 
 
     ax.set_xlabel('Cd')
