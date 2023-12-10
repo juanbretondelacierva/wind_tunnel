@@ -66,29 +66,6 @@ def cl_cd():
     plt.legend()
     plt.show()
 
-def cp_dist():
-    x = np.loadtxt(open("Forces/3D/cp_test.txt", "rb"), delimiter="	", usecols=0, skiprows=2)
-    fig, ax = plt.subplots()
-    for i in range(0, 53, 1):
-        if i == 6 or i ==8:
-            continue
-        else:
-            if i == 47 or i == 29:
-                cp = np.loadtxt(open("Forces/3D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=2)
-                alpha = np.loadtxt(open("Forces/3D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=1, max_rows=1)
-                ax.plot(x, cp, "o", markersize=2)
-                if i <= 38:
-                    ax.plot(x, cp, "-", color="blue", label=("Cd - "+str(alpha)+"º"))
-                else:
-                    ax.plot(x, cp, "-", color="orange", label=("Cd - "+str(alpha)+"º H"))
-
-
-    ax.set_xlabel('Cd')
-    ax.set_ylabel('X')
-    plt.legend(ncol=5)
-    plt.show()
-    
-
 cl_alpha()
 cl_cd()
 cd_alpha()
