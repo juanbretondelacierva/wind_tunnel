@@ -61,7 +61,7 @@ surf = ax.plot_surface(X, Y, np.array(min2d, dtype=int), cmap=cm.coolwarm,
 # Plot settings
 numplots = numberaoa
 columnsplot = 6
-rowsplots = np.ceil(numplots/columnsplot)
+rowsplots = int(np.ceil(numplots/columnsplot))
 
 # First normal data plot
 fig, ax = plt.subplots(rowsplots, columnsplot, sharex=True, sharey=True)
