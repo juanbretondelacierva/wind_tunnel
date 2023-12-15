@@ -4,7 +4,8 @@ import os
 
 def convertarrayandplot(data, label = ''):
     x, y = [item[0] for item in data], [item[1] for item in data]
-    plt.plot(x, y, label = label)
+
+    plt.plot(x, y, marker='.')
     return
 
 for filename in os.listdir('.\\Numerical3D'):
