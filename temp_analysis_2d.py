@@ -55,7 +55,7 @@ def plot():
             data_array = np.matrix(np.loadtxt(open(os.path.join(folder_path, filename), "rb"), delimiter=";", usecols=range(left_limit, right_limit), skiprows=300, max_rows=40))
             data_matrix += data_array / number_of_files
 
-        if i >= 50000:
+        if i >= 0:
             fig, ax = plt.subplots(2,2)
             fig.suptitle(f"Angle of Attack "+str(folder))
             im = ax[0][0].imshow(data_matrix, cmap="jet")

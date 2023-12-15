@@ -15,11 +15,14 @@ def cl_alpha():
     alpha = data_array[:, 0]
     cl = data_array[:, 1]
 
-    ax.plot(alpha, cl, "o", color="orange", markersize=4)
-    ax.plot(alpha, cl, "-", color="orange", label="Uncorrected Cl-alpha")
+    #ax.plot(alpha, cl, "o", color="orange", markersize=4)
+    #ax.plot(alpha, cl, "-", color="orange", label="Uncorrected Cl-alpha")
 
-    ax.set_xlabel('Alpha')
+    ax.set_xlabel('Alpha(°)')
     ax.set_ylabel('Cl')
+    ax.set_xticks(np.arange(-3, 19, 1))
+
+    plt.grid()
     plt.legend()
     plt.show()
 
@@ -109,4 +112,4 @@ def cp_dist():
     plt.show()
     
 
-cp_dist()
+cl_alpha()

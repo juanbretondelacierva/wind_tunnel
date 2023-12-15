@@ -2,7 +2,6 @@ import numpy as np
 import os
 import copy
 import pickle
-import pandas as pd
 
 if __name__ == '__main__':
 

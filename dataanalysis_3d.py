@@ -3,11 +3,14 @@ import matplotlib.pyplot as plt
 import pickle
 from matplotlib import cm
 import scipy as sp
+import itertools
 
 # Import data form pickle
 with open('saved_variables_3d.pkl', 'rb') as file:
     data = pickle.load(file)
 
+numberaoa = 16
+data = dict(itertools.islice(data.items(), numberaoa)) # Slice dictionary to gather only few aoa
 
 # min2d is filled with all the minimum values of each row of the convoluted data for each aoa
 # so [[46]*500]
@@ -33,6 +36,7 @@ smoothingfilter_horizontal = [[1/smoothness_horizontal]]*smoothness_horizontal
 min2d = sp.signal.convolve2d(min2d, smoothingfilter_vertical, mode = 'same')
 min2d = sp.signal.convolve2d(min2d, smoothingfilter_horizontal, mode = 'same')
 
+'''
 fig, ax = plt.subplots()
 ax.invert_yaxis()
 for aoa in np.arange(46):
@@ -47,15 +51,17 @@ ax.axvline(250, color = 'r', linestyle = '--')
 ax.set_ylim(480 - smoothness_horizontal/2, smoothness_horizontal/2)
 ax.axis('equal')
 
+'''
+
 fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-X, Y = np.meshgrid(np.arange(46), np.arange(len(data['0'])))
+X, Y = np.meshgrid(np.arange(16), np.arange(len(data['0'])))
 surf = ax.plot_surface(X, Y, np.array(min2d, dtype=int), cmap=cm.coolwarm,
                        linewidth=0)
 
 # Plot settings
-numplots = 46
-columnsplot = 8
-rowsplots = numplots//columnsplot +1
+numplots = numberaoa
+columnsplot = 6
+rowsplots = np.ceil(numplots/columnsplot)
 
 # First normal data plot
 fig, ax = plt.subplots(rowsplots, columnsplot, sharex=True, sharey=True)
