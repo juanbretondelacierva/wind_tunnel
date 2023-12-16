@@ -10,18 +10,18 @@ def cl_alpha():
 
     fig, ax = plt.subplots()
     ax.plot(alpha, cl, "o", color="blue", markersize=4)
-    ax.plot(alpha, cl, "-", color="blue", label="Corrected Cl-alpha")
+    ax.plot(alpha, cl, "-", color="blue", label="Corrected $C_{L}$-$α$")
 
     data_array = np.loadtxt(open("Forces/3D/unc_test.txt", "rb"), delimiter="	", usecols=[1,3], skiprows=2)
     alpha = data_array[:, 0]
     cl = data_array[:, 1]
 
-    #ax.plot(alpha, cl, "o", color="orange", markersize=4)
-    #ax.plot(alpha, cl, "-", color="orange", label="Uncorrected Cl-alpha")
+    ax.plot(alpha, cl, "o", color="orange", markersize=4)
+    ax.plot(alpha, cl, "-", color="orange", label="Uncorrected $C_{L}$-$α$")
 
-    ax.set_xlabel('Alpha(°)')
-    ax.set_ylabel('Cl')
-    ax.set_xticks(np.arange(-3, 19, 1))
+    ax.set_xlabel('$α$ (deg)')
+    ax.set_ylabel('$C_{L}$ (-)')
+    ax.set_xticks(np.arange(-3, 19, 2))
 
     plt.grid()
     plt.legend()
@@ -74,3 +74,5 @@ def cl_cd():
     plt.show()
 
 cl_alpha()
+cd_alpha()
+cl_cd()

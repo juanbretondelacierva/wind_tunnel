@@ -55,7 +55,7 @@ def plot():
             data_array = np.matrix(np.loadtxt(open(os.path.join(folder_path, filename), "rb"), delimiter=";", usecols=range(left_limit, right_limit), skiprows=300, max_rows=40))
             data_matrix += data_array / number_of_files
 
-        if i >= 0:
+        if i >= 10000:
             fig, ax = plt.subplots(2,2)
             fig.suptitle(f"Angle of Attack "+str(folder))
             im = ax[0][0].imshow(data_matrix, cmap="jet")
@@ -71,7 +71,12 @@ def plot():
             find_line(derivate_row(pixelate_columns(average_columns(data_matrix))), i)
         i += 1
     fig, ax = plt.subplots()
-    im = ax.plot(aoa, chordpos)  # Use aoa instead of aoa_plot
+    ax.plot(aoa, chordpos)  # Use aoa instead of aoa_plot
+    ax.plot(aoa, chordpos, "o", color="blue", markersize="3")
+    ax.set_xlabel("α (deg)")
+    ax.set_ylabel("Trailing edge distance (mm)")
+    ax.set_xticks(np.arange(-3, 50, 3))
+    plt.grid()
     plt.show()
     
 
