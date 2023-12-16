@@ -8,15 +8,14 @@ def cl_alpha():
     cl = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(alpha, cl, "o", color="blue", markersize=4)
-    ax.plot(alpha, cl, "-", color="blue", label="Corrected $C_{L}$-$α$")
+    
+    ax.plot(alpha, cl, "-^", color="blue", markersize=5, markeredgecolor='black', label="Corrected $C_{L}$-$α$")
 
     data_array = np.loadtxt(open("Forces/2D/press_test.txt", "rb"), delimiter="	", usecols=[1,3], skiprows=2)
     alpha = data_array[:, 0]
     cl = data_array[:, 1]
 
-    ax.plot(alpha, cl, "o", color="orange", markersize=4)
-    ax.plot(alpha, cl, "-", color="orange", label="Uncorrected $C_{L}$-$α$")
+    ax.plot(alpha, cl, "-o", color="orange", markersize=4, markeredgecolor='black', label="Uncorrected $C_{L}$-$α$")
 
     ax.set_xlabel('$α$ (deg)')
     ax.set_ylabel('$C_{L}$ (-)')
@@ -32,15 +31,13 @@ def cm_alpha():
     cm = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(alpha, cm, "o", color="blue", markersize=4)
-    ax.plot(alpha, cm, "-", color="blue", label="Corrected $C_{m}$-$α$")
+    ax.plot(alpha, cm,"-^", color="blue", markersize=5, markeredgecolor='black', label="Corrected $C_{m}$-$α$")
 
     data_array = np.loadtxt(open("Forces/2D/press_test.txt", "rb"), delimiter="	", usecols=[1,4], skiprows=2)
     alpha = data_array[:, 0]
     cm = data_array[:, 1]
 
-    ax.plot(alpha, cm, "o", color="orange", markersize=4)
-    ax.plot(alpha, cm, "-", color="orange", label="Uncorrected $C_{m}$-$α$")
+    ax.plot(alpha, cm, "-o", color="orange", markersize=4, markeredgecolor='black', label="Uncorrected $C_{m}$-$α$")
 
     ax.set_xlabel('$α$ (deg)')
     ax.set_ylabel('$C_{m}$ (-)')
@@ -56,15 +53,13 @@ def cd_alpha():
     cd = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(alpha, cd, "o", color="blue", markersize=4)
-    ax.plot(alpha, cd, "-", color="blue", label="Corrected $C_{D}$-$α$")
+    ax.plot(alpha, cd, "-^", color="blue", markersize=5, markeredgecolor='black', label="Corrected $C_{D}$-$α$")
 
     data_array = np.loadtxt(open("Forces/2D/press_test.txt", "rb"), delimiter="	", usecols=[1,2], skiprows=2)
     alpha = data_array[:, 0]
     cd = data_array[:, 1]
 
-    ax.plot(alpha, cd, "o", color="orange", markersize=4)
-    ax.plot(alpha, cd, "-", color="orange", label="Uncorrected $C_{D}$-$α$")
+    ax.plot(alpha, cd, "-o", color="orange", markersize=4, markeredgecolor='black', label="Uncorrected $C_{D}$-$α$")
 
     ax.set_xlabel('$α$ (deg)')
     ax.set_ylabel('$C_{D}$ (-)')
@@ -80,15 +75,14 @@ def cl_cd():
     cl = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(cd, cl, "o", color="blue", markersize=4)
-    ax.plot(cd, cl, "-", color="blue", label="Corrected $C_{L}$-$C_{D}$")
+
+    ax.plot(cd, cl, "-^", color="blue", markersize=5, markeredgecolor='black', label="Corrected $C_{L}$-$C_{D}$")
 
     data_array = np.loadtxt(open("Forces/2D/press_test.txt", "rb"), delimiter="	", usecols=[2,3], skiprows=2)
     cd = data_array[:, 0]
     cl = data_array[:, 1]
 
-    ax.plot(cd, cl, "o", color="orange", markersize=4)
-    ax.plot(cd, cl, "-", color="orange", label="Uncorrected $C_{L}$-$C_{D}$")
+    ax.plot(cd, cl, "-o", color="orange", markersize=4, markeredgecolor='black', label="Corrected $C_{L}$-$C_{D}$")
 
     ax.set_xlabel('$C_{D}$ (-)')
     ax.set_ylabel('$C_{L}$ (-)')
@@ -102,28 +96,31 @@ def cp_dist():
     x = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=0, skiprows=2)
     fig, ax = plt.subplots()
     for i in range(0, 53, 1):
-        if i == 6 or i ==8:
+        if i == 6 or i == 8:
             continue
-        else:
-            if i == 48 or i == 28:
+        elif i>=38 and i<49:
+            """
+            if i == 47 or i == 29:
                 cp = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=2)
                 alpha = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=1, max_rows=1)
                 ax.plot(x, cp, "o", markersize=2)
                 if i <= 38:
-                    ax.plot(x, cp, "-", color="blue", label=("$C_{D}$ - $α$°"))
+                    ax.plot(x, cp, "-^", color="blue", markersize=5, markeredgecolor='black', label="$C_{p}$ distribution without hysteresis at "+str(alpha)+"°")
                 else:
-                    ax.plot(x, cp, "-", color="orange", label=("$C_{D}$ - $α$° H"))
+                    ax.plot(x, cp, "-o", color="orange", markersize=4, markeredgecolor='black', label="$C_{p}$ distribution in hysteresis at "+str(alpha)+"°")
+            """
+            cp = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=2)
+            alpha = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=1, max_rows=1)
+            if i <= 38:
+                ax.plot(x, cp, "-o", markersize=3, markeredgecolor='black', label="$C_{p}$ at "+str(alpha)+"°")
+            else:
+                ax.plot(x, cp, "-o", markersize=3, markeredgecolor='black', label="$C_{p}$ at "+str(alpha)+"° H")
+    ax.set_xlabel('c (%)')
+    ax.set_ylabel('$C_{p}$ (-)')
 
-
-    ax.set_xlabel('$C_{D}$ (-)')
-    ax.set_ylabel('X (m)')
-
-    ax.set_xticks(np.arange(-3, 19, 2))
+    ax.set_xticks(np.arange(0, 105, 5))
     plt.grid()
     plt.legend(ncol=5)
     plt.show()
 
-cl_alpha()
-cd_alpha()
-cl_cd()
-cm_alpha()
+cp_dist()

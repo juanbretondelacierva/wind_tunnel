@@ -71,8 +71,7 @@ def plot():
             find_line(derivate_row(pixelate_columns(average_columns(data_matrix))), i)
         i += 1
     fig, ax = plt.subplots()
-    ax.plot(aoa, chordpos)  # Use aoa instead of aoa_plot
-    ax.plot(aoa, chordpos, "o", color="blue", markersize="3")
+    ax.plot(aoa, chordpos, "-o", color="orange", markersize="5", markeredgecolor="black")
     ax.set_xlabel("α (deg)")
     ax.set_ylabel("Trailing edge distance (mm)")
     ax.set_xticks(np.arange(-3, 50, 3))

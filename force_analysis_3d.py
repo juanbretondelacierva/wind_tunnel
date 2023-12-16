@@ -9,15 +9,13 @@ def cl_alpha():
     cl = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(alpha, cl, "o", color="blue", markersize=4)
-    ax.plot(alpha, cl, "-", color="blue", label="Corrected $C_{L}$-$α$")
+    ax.plot(alpha, cl, "-^", color="blue", markersize=6, markeredgecolor='black', label="Corrected $C_{L}$-$α$")
 
     data_array = np.loadtxt(open("Forces/3D/unc_test.txt", "rb"), delimiter="	", usecols=[1,3], skiprows=2)
     alpha = data_array[:, 0]
     cl = data_array[:, 1]
 
-    ax.plot(alpha, cl, "o", color="orange", markersize=4)
-    ax.plot(alpha, cl, "-", color="orange", label="Uncorrected $C_{L}$-$α$")
+    ax.plot(alpha, cl, "-o", color="orange", markersize=4, markeredgecolor='black', label="Uncorrected $C_{L}$-$α$")
 
     ax.set_xlabel('$α$ (deg)')
     ax.set_ylabel('$C_{L}$ (-)')
