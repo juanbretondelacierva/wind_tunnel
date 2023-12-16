@@ -15,12 +15,12 @@ def cl_alpha():
     alpha = data_array[:, 0]
     cl = data_array[:, 1]
 
-    #ax.plot(alpha, cl, "o", color="orange", markersize=4)
-    #ax.plot(alpha, cl, "-", color="orange", label="Uncorrected Cl-alpha")
+    ax.plot(alpha, cl, "o", color="orange", markersize=4)
+    ax.plot(alpha, cl, "-", color="orange", label="Uncorrected Cl-alpha")
 
-    ax.set_xlabel('Alpha(°)')
-    ax.set_ylabel('Cl')
-    ax.set_xticks(np.arange(-3, 19, 1))
+    ax.set_xlabel('Alpha (°)')
+    ax.set_ylabel('Cl (-)')
+    ax.set_xticks(np.arange(-3, 19, 2))
 
     plt.grid()
     plt.legend()
@@ -42,8 +42,11 @@ def cm_alpha():
     ax.plot(alpha, cm, "o", color="orange", markersize=4)
     ax.plot(alpha, cm, "-", color="orange", label="Uncorrected Cm-alpha")
 
-    ax.set_xlabel('Alpha')
-    ax.set_ylabel('Cm')
+    ax.set_xlabel('Alpha (°)')
+    ax.set_ylabel('Cm (-)')
+
+    ax.set_xticks(np.arange(-3, 19, 2))
+    plt.grid()
     plt.legend()
     plt.show()
 
@@ -63,8 +66,11 @@ def cd_alpha():
     ax.plot(alpha, cd, "o", color="orange", markersize=4)
     ax.plot(alpha, cd, "-", color="orange", label="Uncorrected Cd-alpha")
 
-    ax.set_xlabel('Alpha')
-    ax.set_ylabel('Cd')
+    ax.set_xlabel('Alpha (°)')
+    ax.set_ylabel('Cd (-)')
+
+    ax.set_xticks(np.arange(-3, 19, 2))
+    plt.grid()
     plt.legend()
     plt.show()
 
@@ -84,8 +90,11 @@ def cl_cd():
     ax.plot(cd, cl, "o", color="orange", markersize=4)
     ax.plot(cd, cl, "-", color="orange", label="Uncorrected Cl-Cd")
 
-    ax.set_xlabel('Cd')
-    ax.set_ylabel('Cl')
+    ax.set_xlabel('Cd (-)')
+    ax.set_ylabel('Cl (-)')
+
+    ax.set_xticks(np.arange(0, 0.3, 0.05))
+    plt.grid()
     plt.legend()
     plt.show()
 
@@ -106,10 +115,15 @@ def cp_dist():
                     ax.plot(x, cp, "-", color="orange", label=("Cd - "+str(alpha)+"º H"))
 
 
-    ax.set_xlabel('Cd')
-    ax.set_ylabel('X')
+    ax.set_xlabel('Cd (-)')
+    ax.set_ylabel('X (m)')
+
+    ax.set_xticks(np.arange(-3, 19, 2))
+    plt.grid()
     plt.legend(ncol=5)
     plt.show()
-    
 
 cl_alpha()
+cd_alpha()
+cl_cd()
+cm_alpha()
