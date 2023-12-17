@@ -55,17 +55,20 @@ def plot():
             data_array = np.matrix(np.loadtxt(open(os.path.join(folder_path, filename), "rb"), delimiter=";", usecols=range(left_limit, right_limit), skiprows=300, max_rows=40))
             data_matrix += data_array / number_of_files
 
-        if i >= 10000:
+        if i >= 3:
             fig, ax = plt.subplots(2,2)
-            fig.suptitle(f"Angle of Attack "+str(folder))
+            print("Angle of Attack "+str(folder))
             im = ax[0][0].imshow(data_matrix, cmap="jet")
-            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            ax[0][0].set_title("Original")
+            fig.colorbar(im, ax=ax, label='Original colorbar')
             im = ax[0][1].imshow(row_to_image(pixelate_columns(average_columns(data_matrix))), cmap="jet")
-            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            ax[0][1].set_title("Mean columns")
+            fig.colorbar(im, ax=ax, label="Mean columns' colorbar")
             im = ax[1][1].imshow(row_to_image(derivate_row(pixelate_columns(average_columns(data_matrix)))), cmap="jet")
-            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            ax[1][1].set_title("Derivative")
+            fig.colorbar(im, ax=ax, label="Derivative's colorbar")
             im = ax[1][0].imshow(row_to_image(find_line(derivate_row(pixelate_columns(average_columns(data_matrix))), i)), cmap="binary")
-            fig.colorbar(im, ax=ax, label='Interactive colorbar')
+            ax[1][0].set_title("Transition location")
             plt.show()
         else:
             find_line(derivate_row(pixelate_columns(average_columns(data_matrix))), i)
