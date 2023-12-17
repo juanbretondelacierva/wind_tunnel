@@ -60,7 +60,7 @@ def plot():
             print("Angle of Attack "+str(folder))
             im = ax[0][0].imshow(data_matrix, cmap="jet")
             ax[0][0].set_title("Original")
-            fig.colorbar(im, ax=ax, label='Original colorbar')
+            fig.colorbar(im, ax=ax, label="Original images' colorbar")
             im = ax[0][1].imshow(row_to_image(pixelate_columns(average_columns(data_matrix))), cmap="jet")
             ax[0][1].set_title("Mean columns")
             fig.colorbar(im, ax=ax, label="Mean columns' colorbar")
