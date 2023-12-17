@@ -98,9 +98,8 @@ def cp_dist():
     for i in range(0, 53, 1):
         if i == 6 or i == 8:
             continue
-        elif i>=38 and i<49:
-            """
-            if i == 47 or i == 29:
+        else:
+            if i == 48 or i == 28:
                 cp = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=2)
                 alpha = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=1, max_rows=1)
                 ax.plot(x, cp, "o", markersize=2)
@@ -108,13 +107,7 @@ def cp_dist():
                     ax.plot(x, cp, "-^", color="blue", markersize=5, markeredgecolor='black', label="$C_{p}$ distribution without hysteresis at "+str(alpha)+"°")
                 else:
                     ax.plot(x, cp, "-o", color="orange", markersize=4, markeredgecolor='black', label="$C_{p}$ distribution in hysteresis at "+str(alpha)+"°")
-            """
-            cp = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=2)
-            alpha = np.loadtxt(open("Forces/2D/cp_test.txt", "rb"), delimiter="	", usecols=(i+1), skiprows=1, max_rows=1)
-            if i <= 38:
-                ax.plot(x, cp, "-o", markersize=3, markeredgecolor='black', label="$C_{p}$ at "+str(alpha)+"°")
-            else:
-                ax.plot(x, cp, "-o", markersize=3, markeredgecolor='black', label="$C_{p}$ at "+str(alpha)+"° H")
+            
     ax.set_xlabel('c (%)')
     ax.set_ylabel('$C_{p}$ (-)')
 
