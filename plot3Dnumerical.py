@@ -2,11 +2,21 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
+
+
+zticks=[]
+i=-3
+while i<=18:
+    zticks+=[i]
+    i+=0.5
+
+
 def convertarrayandplot(data, label = ''):
     x, y = [item[0] for item in data], [item[1] for item in data]
-
     plt.plot(x, y, marker='.', label=label)
     return
+
+
 
 for filename in os.listdir('.\\Numerical3D'):
     data_LTT = np.loadtxt(open(os.path.join('.\\Numerical3D', filename), "rb"), delimiter=",", usecols=[0, 1], skiprows=1, max_rows=42)
