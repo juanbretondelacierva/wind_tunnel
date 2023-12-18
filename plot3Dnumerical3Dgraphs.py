@@ -22,7 +22,7 @@ def convertarrayandplot(data,z, c, label = ''):
     plt.plot(x, y, z, marker='.', label=label, color=c)
     return
 
-fig = plt.figure()
+fig = plt.figure(figsize=(20,20))
 ax = fig.add_subplot(projection='3d')
 zticks=[]
 i=-2.5
@@ -41,6 +41,8 @@ def get_graph(order):
 for i in zticks:
     get_graph(str(i))
 
-ax.set_zticks(zticks)
-ax.set_xscale("linear")
+ax.set_xlabel('Span')
+ax.set_ylabel('X-pos %')
+ax.set_zlabel('Angle of Attack')
+
 plt.show()
