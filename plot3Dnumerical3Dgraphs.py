@@ -41,8 +41,8 @@ def get_graph(order):
 for i in zticks:
     get_graph(str(i))
 
-ax.set_xlabel('Span')
+ax.set_xlabel('Y-Span')
 ax.set_ylabel('X-pos %')
-ax.set_zlabel('Angle of Attack')
+ax.set_zlabel('Z-Angle of Attack')
 
 plt.show()
