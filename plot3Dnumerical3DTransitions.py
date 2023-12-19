@@ -34,7 +34,7 @@ def get_graph(order):
     for filename in os.listdir('.\\NumericalTransition3D'):
         if str(filename)[0:-4]==order:
             data = np.loadtxt(open(os.path.join('.\\NumericalTransition3D', filename), "rb"), delimiter=",", usecols=[0, 1],skiprows=1)
-            convertarrayandplot(data,float(order),colours[zticks.index(float(order))],label= order)
+            convertarrayandplot(data,float(order),colours[zticks.index(float(order))],label= order)        
     return 0
 
 
@@ -44,5 +44,6 @@ for i in zticks:
 ax.set_xlabel('Y-Span')
 ax.set_ylabel('X-pos %')
 ax.set_zlabel('Z-Angle of Attack')
-
 plt.show()
+
+
