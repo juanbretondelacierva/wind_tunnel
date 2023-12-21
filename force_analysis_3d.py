@@ -70,7 +70,31 @@ def cl_cd():
     plt.grid()
     plt.legend()
     plt.show()
+    
+def cm_alfa():
+    data_array = np.loadtxt(open("Forces/3D/corr_test.txt", "rb"), delimiter="	", usecols=[1,6], skiprows=2)
+    alpha = data_array[:, 0]
+    cm = data_array[:, 1]
+
+    fig, ax = plt.subplots()
+    ax.plot(alpha, cm, "-^", color="blue", markersize=6, markeredgecolor='black', label="Corrected $C_{M_{0.25c}}$-$α$")
+    #ax.plot(alpha, cm, "o", color="blue", markersize=4)
+    #ax.plot(alpha, cm, "-", color="blue", label="Corrected Cl-Cd")
+
+    data_array = np.loadtxt(open("Forces/3D/unc_test.txt", "rb"), delimiter="	", usecols=[1,11], skiprows=2)
+    alpha = data_array[:, 0]
+    cm = data_array[:, 1]
+
+    ax.plot(alpha, cm, "-o", color="orange", markersize=4, markeredgecolor='black', label="Uncorrected $C_{M}$-$α$")
+    
+
+    ax.set_xlabel('$α$ (deg)')
+    ax.set_ylabel('$C_M$')
+    plt.grid()
+    plt.legend()
+    plt.show()
 
 cl_alpha()
 cd_alpha()
 cl_cd()
+cm_alfa()
