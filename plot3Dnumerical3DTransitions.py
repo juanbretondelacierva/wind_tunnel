@@ -55,9 +55,9 @@ for i in zticks:
     get_graph(str(i))
 
 #set title for the axis
-ax.set_xlabel('Y-Span')
-ax.set_ylabel('X-pos %')
-ax.set_zlabel('Z-Angle of Attack')
+ax.set_xlabel('Y-Span [m]')
+ax.set_ylabel('X-pos [%]')
+ax.set_zlabel('Z-Angle of Attack [deg]')
 plt.show()
 
 
