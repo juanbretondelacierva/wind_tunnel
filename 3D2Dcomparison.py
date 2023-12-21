@@ -31,7 +31,7 @@ def cd_alpha():
     cd = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(alpha, cd, "o", color="blue", markersize=4)
+    ax.plot(alpha, cd, "^", color="blue", markersize=4)
     ax.plot(alpha, cd, "-", color="blue", label="$C_{D}$ - \u03B1 wing")
 
     data_array = np.loadtxt(open("Forces/2D/corr_test.txt", "rb"), delimiter="	", usecols=[1,2], skiprows=2)
@@ -41,8 +41,8 @@ def cd_alpha():
     ax.plot(alpha, cd, "o", color="orange", markersize=4)
     ax.plot(alpha, cd, "-", color="orange", label="$C_{d}$ - \u03B1 airfoil")
 
-    ax.set_xlabel('\u03B1')
-    ax.set_ylabel('$C_{d}$')
+    ax.set_xlabel('\u03B1 (deg)')
+    ax.set_ylabel('$C_{D}$ (-)')
     ax.set_xticks(np.arange(-3, 18, 1))
     
     plt.grid()
@@ -55,7 +55,7 @@ def cl_cd():
     cl = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(cd, cl, "o", color="blue", markersize=4)
+    ax.plot(cd, cl, "^", color="blue", markersize=4)
     ax.plot(cd, cl, "-", color="blue", label="$C_{L}$ - $C_{D}$ wing")
 
     data_array = np.loadtxt(open("Forces/2D/corr_test.txt", "rb"), delimiter="	", usecols=[2,3], skiprows=2)
@@ -65,8 +65,8 @@ def cl_cd():
     ax.plot(cd, cl, "o", color="orange", markersize=4)
     ax.plot(cd, cl, "-", color="orange", label="$C_{l}$ - $C_{d}$ airfoil")
 
-    ax.set_xlabel('$C_{d}$')
-    ax.set_ylabel('$C_{l}$')
+    ax.set_xlabel('$C_{D} (-)$')
+    ax.set_ylabel('$C_{L} (-)$')
     plt.grid()
     plt.legend()
     plt.show()
@@ -77,7 +77,7 @@ def cm_alfa():
     cl = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(cd, cl, "o", color="blue", markersize=4)
+    ax.plot(cd, cl, "^", color="blue", markersize=4)
     ax.plot(cd, cl, "-", color="blue", label="$C_{M}$ - \u03B1 wing")
 
     data_array = np.loadtxt(open("Forces/2D/corr_test.txt", "rb"), delimiter="	", usecols=[1,4], skiprows=2)
@@ -87,8 +87,8 @@ def cm_alfa():
     ax.plot(cd, cl, "o", color="orange", markersize=4)
     ax.plot(cd, cl, "-", color="orange", label="$C_{m}$ - \u03B1 airfoil")
 
-    ax.set_xlabel('$\u03B1$')
-    ax.set_ylabel('$C_{m}$')
+    ax.set_xlabel('$\u03B1$ (deg)')
+    ax.set_ylabel('$C_{M} (-)$')
     plt.grid()
     plt.legend()
     plt.show()
