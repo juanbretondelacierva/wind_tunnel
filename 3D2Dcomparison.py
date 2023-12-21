@@ -71,6 +71,31 @@ def cl_cd():
     plt.legend()
     plt.show()
 
+def cm_alfa():
+    data_array = np.loadtxt(open("Forces/3D/corr_test.txt", "rb"), delimiter="	", usecols=[1,11], skiprows=2)
+    cd = data_array[:, 0]
+    cl = data_array[:, 1]
+
+    fig, ax = plt.subplots()
+    ax.plot(cd, cl, "o", color="blue", markersize=4)
+    ax.plot(cd, cl, "-", color="blue", label="$C_{M}$ - \u03B1 wing")
+
+    data_array = np.loadtxt(open("Forces/2D/corr_test.txt", "rb"), delimiter="	", usecols=[1,4], skiprows=2)
+    cd = data_array[:, 0]
+    cl = data_array[:, 1]
+
+    ax.plot(cd, cl, "o", color="orange", markersize=4)
+    ax.plot(cd, cl, "-", color="orange", label="$C_{m}$ - \u03B1 airfoil")
+
+    ax.set_xlabel('$C_{m}$')
+    ax.set_ylabel('$\u03B1$')
+    plt.grid()
+    plt.legend()
+    plt.show()
+
+
+
 cl_alpha()
 cd_alpha()
 cl_cd()
+cm_alfa()
