@@ -9,13 +9,13 @@ def cl_alpha():
     cl = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(alpha, cl, "-^", color="blue", markersize=6, markeredgecolor='black', label="$C_{L}$ - \u03B1 wing")
+    ax.plot(alpha, cl, "-^", color="blue", markersize=4, markeredgecolor='blue', label="$C_{L}$ - \u03B1 wing")
 
     data_array = np.loadtxt(open("Forces/2D/corr_test.txt", "rb"), delimiter="	", usecols=[1,3], skiprows=2)
     alpha = data_array[:, 0]
     cl = data_array[:, 1]
 
-    ax.plot(alpha, cl, "-o", color="orange", markersize=4, markeredgecolor='black', label="$C_{l}$ - \u03B1 airfoil")
+    ax.plot(alpha, cl, "-o", color="orange", markersize=4, markeredgecolor='orange', label="$C_{l}$ - \u03B1 airfoil")
 
     ax.set_xlabel('\u03B1 (deg)')
     ax.set_ylabel('$C_{L}$ (-)')
@@ -87,8 +87,8 @@ def cm_alfa():
     ax.plot(cd, cl, "o", color="orange", markersize=4)
     ax.plot(cd, cl, "-", color="orange", label="$C_{m}$ - \u03B1 airfoil")
 
-    ax.set_xlabel('$C_{m}$')
-    ax.set_ylabel('$\u03B1$')
+    ax.set_xlabel('$\u03B1$')
+    ax.set_ylabel('$C_{m}$')
     plt.grid()
     plt.legend()
     plt.show()
