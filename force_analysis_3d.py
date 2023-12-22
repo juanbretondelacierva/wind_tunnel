@@ -31,14 +31,14 @@ def cd_alpha():
     cd = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(alpha, cd, "o", color="blue", markersize=4)
+    ax.plot(alpha, cd, "^", color="blue", markersize=4, markeredgecolor='black')
     ax.plot(alpha, cd, "-", color="blue", label="Corrected $C_D$-$α$")
 
     data_array = np.loadtxt(open("Forces/3D/unc_test.txt", "rb"), delimiter="	", usecols=[1,4], skiprows=2)
     alpha = data_array[:, 0]
     cd = data_array[:, 1]
 
-    ax.plot(alpha, cd, "o", color="orange", markersize=4)
+    ax.plot(alpha, cd, "o", color="orange", markersize=4, markeredgecolor='black')
     ax.plot(alpha, cd, "-", color="orange", label="Uncorrected $C_D$-$α$")
 
     ax.set_xlabel('$α$ (deg)')
@@ -55,15 +55,15 @@ def cl_cd():
     cl = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(cd, cl, "o", color="blue", markersize=4)
+    ax.plot(cd, cl, "^", color="blue", markersize=4,markeredgecolor='black')
     ax.plot(cd, cl, "-", color="blue", label="Corrected $C_L$-$C_D$")
 
     data_array = np.loadtxt(open("Forces/3D/unc_test.txt", "rb"), delimiter="	", usecols=[4,3], skiprows=2)
     cd = data_array[:, 0]
     cl = data_array[:, 1]
 
-    ax.plot(cd, cl, "o", color="orange", markersize=4)
-    ax.plot(cd, cl, "-", color="orange", label="Uncorrected $C_L$-$C_D$")
+
+    ax.plot(cd, cl, "-o", color="orange", markersize=4, markeredgecolor='black', label="Uncorrected $C_L$-$C_D$")
 
     ax.set_xlabel('$C_D$ (-)')
     ax.set_ylabel('$C_L$ (-)')
@@ -77,7 +77,7 @@ def cm_alfa():
     cm = data_array[:, 1]
 
     fig, ax = plt.subplots()
-    ax.plot(alpha, cm, "-^", color="blue", markersize=6, markeredgecolor='black', label="Corrected $C_{M_{0.25c}}$-$α$")
+    ax.plot(alpha, cm, "-^", color="blue", markersize=4, markeredgecolor='black', label="Corrected $C_{M}$-$α$")
     #ax.plot(alpha, cm, "o", color="blue", markersize=4)
     #ax.plot(alpha, cm, "-", color="blue", label="Corrected Cl-Cd")
 
