@@ -19,11 +19,6 @@ for filename in os.listdir('.\\Numerical3D'):
     convertarrayandplot(data_LTT, "-",".", label = 'LTT')
     convertarrayandplot(data_Panel, ":","", label = 'Panel Method')
     convertarrayandplot(data_VLM, ":","", label = 'VLM')
-    # Set the x-axis label
-    plt.xlabel('X-Drag Coefficient [-]')
-
-    # Set the y-axis label
-    plt.ylabel('Y-Lift Coefficient [-]')
     
     
     plt.title(f"{filename}")
